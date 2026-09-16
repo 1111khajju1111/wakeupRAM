@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     AI_PROVIDER: str = "groq"
     GROQ_API_KEY: str = ""
     ANTHROPIC_API_KEY: str = ""
-    AI_MODEL_NAME: str = "llama-3.3-70b-versatile"
+    AI_MODEL_NAME: str = "openai/gpt-oss-120b"
     AI_MAX_TOKENS: int = 1024
     AI_DEFAULT_MODE: str = "adaptive"
     AI_MEMORY_RETRIEVAL_LIMIT: int = 20
@@ -43,8 +43,8 @@ class Settings(BaseSettings):
     TTS_MODEL_NAME: str = "gemini-3.1-flash-tts-preview"
     GOOGLE_API_KEY: str = ""
 
-    BACKEND_BASE_URL: str = "http://localhost:8000"
-    FRONTEND_BASE_URL: str = "http://localhost:5173"
+    BACKEND_BASE_URL: str = "https://wakeupram.onrender.com"
+    FRONTEND_BASE_URL: str = "https://wakeup-ram.vercel.app"
 
     @property
     def cors_origins_list(self) -> List[str]:
