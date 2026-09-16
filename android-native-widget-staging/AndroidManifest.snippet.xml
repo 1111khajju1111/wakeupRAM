@@ -1,0 +1,31 @@
+<!--
+  Merge these into android/app/src/main/AndroidManifest.xml, inside the
+  existing <application> tag (alongside MainActivity and, if the Phase 11
+  call-recorder plugin has also been integrated, its entries).
+
+  No new <uses-permission> needed: INTERNET is already required by the app
+  itself (every other backend call needs it) and should already be present
+  from scripts/generate-android.sh's manifest patch. Confirm it's there
+  rather than assuming — see android-native-plugin-staging/README.md's
+  same caution about not trusting an unverified file blindly.
+-->
+<receiver
+    android:name="com.wakeupram.app.widget.CountdownWidgetProvider"
+    android:exported="true"
+    android:label="@string/widget_description">
+    <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+    </intent-filter>
+    <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/countdown_widget_info" />
+</receiver>
+
+<activity
+    android:name="com.wakeupram.app.widget.CountdownWidgetConfigureActivity"
+    android:exported="true"
+    android:theme="@android:style/Theme.DeviceDefault.Light.Dialog">
+    <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+    </intent-filter>
+</activity>

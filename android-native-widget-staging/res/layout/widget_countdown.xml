@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  RemoteViews only supports a limited view set (FrameLayout/LinearLayout/
+  RelativeLayout/GridLayout containers; TextView, ImageView, Button,
+  ProgressBar, etc. as leaves) — no custom views, no ConstraintLayout.
+  Kept deliberately plain for that reason: a LinearLayout with two
+  TextViews, styled to match section 15's Nothing-inspired tokens (black/
+  white, thin border, large numerical typography, generous whitespace)
+  using the same widget_background/-night and widget_text_primary/-night
+  resources so it follows the system theme automatically.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="@drawable/widget_background"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/widget_countdown_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/widget_text_primary"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="Board exam" />
+
+    <TextView
+        android:id="@+id/widget_countdown_remaining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/widget_text_primary"
+        android:textSize="28sp"
+        android:fontFamily="monospace"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="2d 4h left" />
+
+</LinearLayout>

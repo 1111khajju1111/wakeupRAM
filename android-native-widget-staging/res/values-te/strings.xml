@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">మీరు సృష్టించిన కౌంట్‌డౌన్‌ను చూపిస్తుంది — ఒకటి ఎంచుకోండి, లేదా సమీపంలో ఉన్నదాన్ని ట్రాక్ చేయండి.</string>
+    <string name="widget_no_active_countdown">యాక్టివ్ కౌంట్‌డౌన్ లేదు</string>
+    <string name="widget_unavailable">లోడ్ కాలేదు</string>
+    <string name="widget_overdue">గడువు దాటింది</string>
+    <string name="widget_remaining_days_hours">%1$dరో %2$dగం మిగిలి ఉంది</string>
+    <string name="widget_remaining_hours_minutes">%1$dగం %2$dని మిగిలి ఉంది</string>
+    <string name="widget_remaining_minutes">%1$dని మిగిలి ఉంది</string>
+    <string name="widget_configure_title">కౌంట్‌డౌన్ ఎంచుకోండి</string>
+    <string name="widget_configure_use_soonest">ఎల్లప్పుడూ సమీప యాక్టివ్ దాన్ని చూపించు</string>
+    <string name="widget_configure_or_pick">లేదా నిర్దిష్టమైనదాన్ని ఎంచుకోండి:</string>
+    <string name="widget_configure_no_countdowns">ఇంకా కౌంట్‌డౌన్‌లు లేవు. ముందుగా యాప్‌లో ఒకటి సృష్టించి, ఆ తర్వాత ఈ విడ్జెట్‌ను జోడించండి.</string>
+</resources>

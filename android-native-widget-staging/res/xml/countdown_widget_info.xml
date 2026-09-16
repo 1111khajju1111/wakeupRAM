@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  updatePeriodMillis is set to 0 deliberately, not 1800000 (30 min):
+  Android's own AppWidgetProviderInfo docs say updatePeriodMillis below
+  30 minutes is clamped to 30 minutes anyway, and using it alongside our
+  own WorkManager periodic schedule (also 30 min, in
+  CountdownWidgetProvider.onEnabled) would just be two competing timers
+  doing the same job. WorkManager's periodic work is the single source of
+  the refresh schedule; the OS-level mechanism is turned off by setting
+  this to 0.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="40dp"
+    android:targetCellWidth="3"
+    android:targetCellHeight="1"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/widget_countdown"
+    android:configure="com.wakeupram.app.widget.CountdownWidgetConfigureActivity"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:description="@string/widget_description">
+</appwidget-provider>

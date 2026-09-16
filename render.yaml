@@ -1,0 +1,71 @@
+# Render Blueprint (https://render.com/docs/blueprint-spec).
+# Deploying this: push to a connected repo, then in Render dashboard
+# "New +" -> "Blueprint" -> point at this repo. Render reads this file and
+# provisions the service below.
+#
+# Deliberately NOT included here: the actual database. Master doc section
+# 24/25 specifies Aiven PostgreSQL as the managed database, not Render's own
+# Postgres — so DATABASE_URL is a manually-set secret (below), not a Render
+# `fromDatabase` reference. Provision the Aiven instance separately and
+# paste its connection string into the Render dashboard's env var UI; it is
+# never committed here.
+
+services:
+  - type: web
+    name: wake-up-ram-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false"
+      # sync: false means "Render will prompt for this value in the
+      # dashboard and never store/generate it here" — every one of these is
+      # a secret or a per-environment value, never a literal in this file.
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SSL_MODE
+        value: require
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+      - key: REFRESH_TOKEN_EXPIRE_DAYS
+        value: "30"
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false # set to the deployed Vercel frontend URL(s), comma-separated
+      - key: RATE_LIMIT_DEFAULT
+        value: 100/minute
+      - key: AI_PROVIDER
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: AI_MODEL_NAME
+        sync: false
+      - key: AI_MAX_TOKENS
+        value: "1024"
+      - key: AI_DEFAULT_MODE
+        value: adaptive
+      - key: AI_MEMORY_RETRIEVAL_LIMIT
+        value: "20"
+      - key: STT_PROVIDER
+        sync: false
+      - key: STT_MODEL_NAME
+        sync: false
+      - key: TTS_PROVIDER
+        sync: false
+      - key: TTS_MODEL_NAME
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: BACKEND_BASE_URL
+        sync: false # set to this service's own Render URL once known
+      - key: FRONTEND_BASE_URL
+        sync: false # set to the deployed Vercel frontend URL

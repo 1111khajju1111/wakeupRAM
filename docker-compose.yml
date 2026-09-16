@@ -1,0 +1,59 @@
+# Local development only. Production uses Aiven PostgreSQL (see render.yaml
+# and the master doc, section 25) — this compose file's `db` service exists
+# so `docker compose up` gives a working Postgres instance for local dev/CI
+# without anyone needing real Aiven credentials just to run the app.
+#
+# Usage:
+#   cp backend/.env.example backend/.env   # then edit JWT_SECRET_KEY etc.
+#   docker compose up --build
+#
+# The frontend is intentionally NOT containerized here — `npm run dev` with
+# Vite's own dev server (hot reload) is faster for day-to-day frontend work.
+# Point it at this stack with:
+#   echo "VITE_API_BASE_URL=http://localhost:8000" > frontend/.env
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: wakeupram
+      POSTGRES_PASSWORD: wakeupram_dev_only
+      POSTGRES_DB: wakeupram
+    ports:
+      - "5432:5432"
+    volumes:
+      - wakeupram_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wakeupram -d wakeupram"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      ENVIRONMENT: development
+      DEBUG: "true"
+      DATABASE_URL: postgresql+psycopg2://wakeupram:wakeupram_dev_only@db:5432/wakeupram
+      DATABASE_SSL_MODE: disable
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dev-only-change-me}
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,capacitor://localhost
+      RATE_LIMIT_DEFAULT: 100/minute
+      AI_PROVIDER: ${AI_PROVIDER:-deterministic}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      AI_MODEL_NAME: ${AI_MODEL_NAME:-}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
+      BACKEND_BASE_URL: http://localhost:8000
+      FRONTEND_BASE_URL: http://localhost:5173
+
+volumes:
+  wakeupram_pgdata:

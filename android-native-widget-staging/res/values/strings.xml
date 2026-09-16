@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">Shows a countdown you\'ve created — pick one, or track whichever is soonest.</string>
+    <string name="widget_no_active_countdown">No active countdown</string>
+    <string name="widget_unavailable">Couldn\'t load</string>
+    <string name="widget_overdue">Overdue</string>
+    <!-- %1$d = number, formatted with String.format — matches
+         CountdownsScreen.tsx's remainingDays/remainingHours/remainingMinutes
+         i18n keys in shape, not copy-pasted since Android string format
+         placeholders (%1$d) differ from i18next's {{days}} syntax. -->
+    <string name="widget_remaining_days_hours">%1$dd %2$dh left</string>
+    <string name="widget_remaining_hours_minutes">%1$dh %2$dm left</string>
+    <string name="widget_remaining_minutes">%1$dm left</string>
+    <string name="widget_configure_title">Choose a countdown</string>
+    <string name="widget_configure_use_soonest">Always show soonest active</string>
+    <string name="widget_configure_or_pick">Or pick a specific one:</string>
+    <string name="widget_configure_no_countdowns">No countdowns yet. Create one in the app first, then add this widget.</string>
+</resources>
