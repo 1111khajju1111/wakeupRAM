@@ -1,5 +1,6 @@
 # Secrets — never commit real values, only .env.example files
 .env
+.env.example
 .env.*
 !.env.example
 !*/.env.example
