@@ -38,7 +38,7 @@ app.add_middleware(SlowAPIMiddleware)
 # browser access, which is the safe default until it's deliberately configured.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins_list,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
